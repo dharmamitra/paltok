@@ -1,0 +1,3 @@
+[submodule "segmented-pali"]
+	path = segmented-pali
+	url = git@github.com:BuddhaNexus/segmented-pali.git
