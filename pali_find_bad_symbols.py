@@ -13,7 +13,7 @@ def clean_pali(string):
         string = re.sub(r'[\t\n\r\x0b\x0c]'," ", string) # whitespaces apart from " "
         string = re.sub(r'[ṅṁ]',"ṃ", string) # whitespaces apart from " "
         # line = line.replace("ạ", "a") # only one case in Pali
-        string = re.sub(r'[”ऐạै–…‘“’\\ौऋ—औ]',"ṃ", string)
+        string = re.sub(r'[”ऐạै–…‘“’\\ौऋ—औ]',"", string)
         return string
 
 collection = set()
