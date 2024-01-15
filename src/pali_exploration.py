@@ -26,7 +26,6 @@ with open("pali_for_sentencepiece.txt", encoding="utf-8") as inputfile:
         findings = [sym for sym in line if sym not in allowed]
         collection = set.union(collection, set(findings))
 
-
 print(len(collection))
 print(collection)
 

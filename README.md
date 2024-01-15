@@ -1,9 +1,38 @@
-`time spm_train --input=pali_for_sentencepiece.txt --model_prefix=pali_spm --vocab_size=4000 --character_coverage=1.0`
+# 0. Overview
 
+At present this repo contains 4 things:
+
+1. scripts for transforming the json formatted text from https://github.com/BuddhaNexus/segmented-pali into tsv-format
+
+2. scripts for preparation of one huge txt-document for training sentencepiece model
+
+3. scripts for running the SPM training
+
+4. scripts for running the FastText training
+
+## Prerequisits
+
+- installed SPM
+
+- built FastText executable
+
+# 1. JSON to TSV
+
+`src/pali_json2csv.py`
+
+# 2. Cleaning text for training (TSV to TXT)
+
+For exploring the text: `src/pali_exploration.py`
+
+Actual job is done by: `src/pali_csv2txt_for_sentencepiece.py`
+
+# 3. Sentencepiece training =TOKENIZATION
+
+`time spm_train --input=pali_for_sentencepiece.txt --model_prefix=pali_spm --vocab_size=4000 --character_coverage=1.0`
 
 `time cat pali_for_sentencepiece.txt | spm_encode --model=pali_spm.model > pali_tokenized_for_fasttext.txt`
 
-# FastText
+# 3. FastText training =VECTORS
 
 [Documentation](https://fasttext.cc/docs/en/unsupervised-tutorial.html)
 
@@ -12,3 +41,27 @@
 Build fastText and call from the directory with the fasttext binary:
 
 `time ./fasttext skipgram -input ../paltok/pali_tokenized_for_fasttext.txt -output ../paltok/pali_fasttext.model`
+
+# 4. Results
+
+## Artifacts
+
+1. zipped tsv text
+
+2. sentencepiece model
+
+3. fasttext model
+
+## Naming, Versioning, Storange
+
+todo
+
+### structure of the project
+
+## Packaging
+
+the most reusable items seem to be:
+
+1. pali_cleaner function
+
+2. FastText tokenization
