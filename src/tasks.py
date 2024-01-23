@@ -2,7 +2,7 @@ from invoke import task
 from pali_json2tsv import pali_repo2tsv
 import datetime
 
-tsv_dir = "../pali_all/"
+tsv_dir = "../pali_all"
 txt_dir = "../"
 
 @task
