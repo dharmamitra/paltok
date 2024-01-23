@@ -18,13 +18,15 @@ At present this repo contains 4 things:
 
 # 1. JSON to TSV
 
-`src/pali_json2csv.py`
+It seems there are 783993 lines in the corpus
+
+`src/pali_json2tsv.py`
 
 # 2. Cleaning text for training (TSV to TXT)
 
 For exploring the text: `src/pali_exploration.py`
 
-Actual job is done by: `src/pali_csv2txt_for_sentencepiece.py`
+Actual job is done by: `src/pali_prep_spm.py`
 
 # 3. Sentencepiece training =TOKENIZATION
 
@@ -56,7 +58,7 @@ Build fastText and call from the directory with the fasttext binary:
 
 todo
 
-### structure of the project
+### structure of the proj
 
 ## Packaging
 

@@ -1,1 +1,10 @@
 venv/
+*.zip
+*.bin
+*.txt
+*.vec
+*.model
+*.vocab
+*.tsv
+
+*.pyc

@@ -5,7 +5,7 @@ import pandas as pd
 import shutil
 import re
 
-dest_file = Path("/home/wo/bn/paltok/pali_findings.txt")
+dest_file = Path("./pali_findings.txt")
 
 def clean_pali(string):
         string = string.lower()
