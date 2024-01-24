@@ -1,10 +1,13 @@
+import os
 from pathlib import Path
 
 import pandas as pd
 import shutil
 from git import Repo  # pip install gitpython
 from tqdm import tqdm
+from timestamp import get_timestapm
 
+PALI_TSV_DIR_PREFIX = "pali_all"
 
 def get_new_filename(file_path: Path, extention: str = "tsv") -> str:
     """create new name by encoding the info about the directory structure 
@@ -31,18 +34,21 @@ def clone_repo():
 
 def pali_repo2tsv(
     json_dir="../segmented-pali/inputfiles/",
-    tsv_dir="../pali_tsv/",
+    tsv_dir="../",
     extention="tsv",
     clone=True,
     archive=True,
     ):
     if clone:
         clone_repo()
-    tsv_dir = Path(tsv_dir)
+    stamp = get_timestapm(None)
+
+    tsv_dir = Path(tsv_dir + PALI_TSV_DIR_PREFIX + stamp)
     tsv_dir.mkdir(exist_ok=True)
 
     print("Transforming to TSV")
     all_files = list(Path(json_dir).rglob("*.json"))
+    # print(all_files)
     for file_path in tqdm(all_files):
         new_filename = get_new_filename(
             file_path.relative_to(json_dir),

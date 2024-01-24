@@ -6,19 +6,33 @@ import shutil
 from tqdm import tqdm
 
 from pali_cleaner import pali_cleaner
+from timestamp import get_timestapm, find_latest, stamp2datetime
+from pali_json2tsv import PALI_TSV_DIR_PREFIX
+PALI_FOR_SPM_FILENAME = "pali_for_spm"
 
 def pali_prep_spm(
-        src_dir = "../pali_tsv",
-        dest_file = "../pali_for_spm.txt",
+        src_dir = "../",
+        dest_dir = None,
         in_extention="tsv",
         archive=False,
         sep="\t",
         DEBUG=False,
         FEEDBACK=False,
     ):
+    feedback_stamp = "" if not FEEDBACK else "_feedback"
+    if not dest_dir:
+        dest_dir = src_dir
+    src_dir = Path(src_dir) / find_latest(path=src_dir, prefix=PALI_TSV_DIR_PREFIX)
+    dest_file = Path(dest_dir) / ( \
+                PALI_FOR_SPM_FILENAME + \
+                feedback_stamp + \
+                get_timestapm(stamp2datetime(str(src_dir))) + \
+                ".txt"
+                )
 
     with open(dest_file, 'w+') as outputfile:
         all_paths = Path(src_dir).rglob(f"*.{in_extention}")
+        print(">>>", src_dir)
         for file_path in tqdm(list(all_paths)):
 
             with open(file_path, encoding="utf-8") as inputfile:

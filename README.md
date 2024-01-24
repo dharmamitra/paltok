@@ -48,9 +48,9 @@ Build fastText and call from the directory with the fasttext binary:
 
 ## Artifacts
 
-1. zipped tsv text
+1. (zipped) tsv texts
 
-2. sentencepiece model
+2. sentencepiece model + vocab
 
 3. fasttext model
 
