@@ -13,6 +13,8 @@ def pali_prep_spm(
         in_extention="tsv",
         archive=False,
         sep="\t",
+        DEBUG=False,
+        FEEDBACK=False,
     ):
 
     with open(dest_file, 'w+') as outputfile:
@@ -25,8 +27,11 @@ def pali_prep_spm(
                 text_col = df[1]
             for seg_id, line in zip(segment_ids, text_col):
                 cleaned_line = pali_cleaner(str(line))
-                if not len(cleaned_line.strip()):
-                    print(f"{seg_id} : {line} : ${cleaned_line}$ = {len(cleaned_line)}")
+                if DEBUG:
+                    if not len(cleaned_line.strip()):
+                        print(f"{seg_id} : {line} : ${cleaned_line}$ = {len(cleaned_line)}")
+                if FEEDBACK:
+                    cleaned_line =f"{seg_id}\t{line}\t${cleaned_line}$ = {len(cleaned_line)}"
                 outputfile.write(cleaned_line + '\n')
     if archive:
         shutil.make_archive(
