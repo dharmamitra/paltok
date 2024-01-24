@@ -1,3 +1,11 @@
+# TODO
+
+- Make it independent of installed SPM that needs root rights (run inside python)
+
+- install  Fasttext locally
+
+- document bash scripts, makefile, timespam for versioning
+
 # 0. Overview
 
 At present this repo contains 4 things:
