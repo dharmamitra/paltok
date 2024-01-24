@@ -43,10 +43,10 @@ def pali_repo2tsv(
         clone_repo()
     stamp = get_timestapm(None)
 
-    tsv_dir = Path(tsv_dir + PALI_TSV_DIR_PREFIX + stamp)
+    tsv_dir = Path(tsv_dir) / (PALI_TSV_DIR_PREFIX + stamp)
     tsv_dir.mkdir(exist_ok=True)
 
-    print("Transforming to TSV")
+    print(f"Transforming to TSV and writing to {tsv_dir}")
     all_files = list(Path(json_dir).rglob("*.json"))
     # print(all_files)
     for file_path in tqdm(all_files):
