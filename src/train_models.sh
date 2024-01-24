@@ -34,4 +34,4 @@ time cat ${OUTPUT_DIR}/${TXT_FOR_SPM} | spm_encode \
 echo Training a FastText model
 time ${FASTTEXT_BINARY} skipgram \
     -input ${TOKENIZED} \
-    -output ${OUTPUT_DIR}/pali_fasttext${SUFFIX}.model
+    -output ${OUTPUT_DIR}/pali_fasttext${SUFFIX}
