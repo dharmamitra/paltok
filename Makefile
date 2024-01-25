@@ -2,13 +2,9 @@ CWD=$(shell pwd)
 PY_VERSION=3.12.1
 PY_BIN=python/bin/python3
 
-all: build
+build: venv/venv.lock fastText/fasttext
 
-submodule.lock:
-	git submodule update --init --recursive
-	touch submodule.lock
-
-venv/venv.lock: python requirements.txt
+venv/venv.lock: requirements.txt
 	test -d venv || ${PY_BIN} -m venv venv 
 	sed -i '/include-system-site-packages/s/false/true/' venv/pyvenv.cfg
 	. venv/bin/activate && \
@@ -19,18 +15,14 @@ venv/venv.lock: python requirements.txt
 fastText/fasttext: submodule.lock 
 	cd fastText && make
 
-build: venv/venv.lock fastText/fasttext
+submodule.lock:
+	git submodule update --init --recursive
+	touch submodule.lock
+
+run: build
 	. venv/bin/activate && \
 	echo $${PATH} && \
 	cd src && bash train_models.sh
-
-
-clean:
-	rm -rf output
-
-fclean: clean
-	rm -rf venv
-	rm -rf segmented-pali/*
 
 python:
 	mkdir python
@@ -42,5 +34,9 @@ python:
 	make && \
 	make install
 
-test:
-	echo 
+clean:
+	rm -rf output
+
+fclean: clean
+	rm -rf venv
+	rm -rf segmented-pali/*
