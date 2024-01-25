@@ -40,3 +40,6 @@ clean:
 fclean: clean
 	rm -rf venv
 	rm -rf segmented-pali/*
+	rm -rf fastText/*
+	rm -rf python
+	
