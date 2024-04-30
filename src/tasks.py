@@ -4,6 +4,7 @@ from pali_prep_spm import pali_prep_spm
 import os
 from pathlib import Path
 from tqdm import tqdm
+from datetime import datetime
 from timestamp import stamp2datetime, get_timestapm, find_latest
 from pali_prep_spm import PALI_FOR_SPM_FILENAME
 import sentencepiece as spm
@@ -75,18 +76,29 @@ def encode_for_fasttext(c, input_path, model_path, output_path):
                 tokens = sp.encode_as_pieces(line)
                 out_file.write(" ".join(tokens) + "\n")
 
+# invoke stem --input-dir="/home/wo/bn/paltok/output/pali_all_202401291258" --model-path="/home/wo/bn/dvarapandita/code/ref/pali_spm_2024-01-15.model"
 @task
 def stem(c,
               model_path,
               input_dir,
               output_dir=None,
               lang="pli",
+              archive=False,
+              headers=False,
               ):
+    if output_dir:
+        Path(output_dir).mkdir(exist_ok=True)
+    else:
+        output_dir = Path("../tsv" + get_timestapm(datetime.now()))
+        output_dir.mkdir(exist_ok=True)
     stmr = Stemmer(lang=lang,
                    spm_model_abspath=model_path,
                 input_dir=input_dir,
                 output_dir=output_dir,
-                archive=False,
+                archive=False if not archive else True,
+                headers=False if not headers else True,
                 resume_mode=False
                 )
     stmr.process_src_dir()
+
+#  scp ../tsv_2024-04-30-1508.zip    hpc:/tier2/ucb/nehrdich/pli

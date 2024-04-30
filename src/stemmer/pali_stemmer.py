@@ -42,6 +42,7 @@ class Stemmer:
         spm_model_abspath,
         input_dir: str,
         output_dir: str = None,
+        headers=False,
         archive=False,
         sep="\t",
         resume_mode=True,
@@ -54,9 +55,11 @@ class Stemmer:
         self.file_paths: list[Path] = self.init_file_paths()
         self.tokenizer = self.set_tokenizer()
         self.output_dir: Path = self.make_dest_dir(output_dir)
+        print(f"output_dir: {self.output_dir}")
         self.done_paths = list(self.output_dir.rglob("*" + DIR_NAME_STEMMED))
         self.cleaner = self.init_cleaner()
         self.sep = sep
+        self.headers = headers
         self.archive = archive
         self.drop_empty = drop_empty
 
@@ -82,7 +85,7 @@ class Stemmer:
                 raise LanguageNotSupported()
 
     def init_src_dir(self, input_path: str) -> Path:
-        path = Path(input_path)
+        path = Path(input_path).resolve()
         if path.is_file():
             return path.parent
         elif path.is_dir():
@@ -95,9 +98,9 @@ class Stemmer:
         print(f"Stemmer: found original files {len(paths)}")
         return paths
 
-    def make_dest_dir(self, output_dir) -> None:
+    def make_dest_dir(self, output_dir) -> Path:
         if output_dir:
-            return output_dir
+            return Path(output_dir).resolve()
         else:
             dest_dir = self.src_dir.parent / DIR_NAME_STEMMED
             dest_dir.mkdir(exist_ok=True)
@@ -131,7 +134,7 @@ class Stemmer:
         df = self.file2df(file_path)
         df.to_csv(dest_file_path,
                     sep="\t",
-                    header=True,
+                    header=self.headers,
                     index=False
                 )
         return df  # for testing

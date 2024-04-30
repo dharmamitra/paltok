@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 TIMESTAMP_SEP = "_"
-TIME_FORMAT = "%Y%m%d%H%M"
+TIME_FORMAT = "%Y-%m-%d-%H%M"
 TIME_PATTERN = "[0-9]{12}"
 
 def stamp2datetime(path: str) -> datetime:
