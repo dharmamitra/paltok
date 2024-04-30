@@ -1,0 +1,8 @@
+TSV_COL_SEGMENTNR = "segmentnr"
+TSV_COL_ORIGINAL = "original"
+TSV_COL_STEMMED = "stemmed"
+
+DIR_NAME_STEMMED = "tsv"
+DIR_NAME_VECTORS = ""
+
+EXTENTION_STEMMED = ".tsv"

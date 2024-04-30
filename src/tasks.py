@@ -7,6 +7,7 @@ from tqdm import tqdm
 from timestamp import stamp2datetime, get_timestapm, find_latest
 from pali_prep_spm import PALI_FOR_SPM_FILENAME
 import sentencepiece as spm
+from stemmer.pali_stemmer import Stemmer
 
 # invoke create-pali-all-tsv --json-dir "../segmented-pali/inputfiles_cut_segments_on_space" --tsv-dir "../pali_all"
 @task
@@ -73,3 +74,19 @@ def encode_for_fasttext(c, input_path, model_path, output_path):
             for line in tqdm(in_file):
                 tokens = sp.encode_as_pieces(line)
                 out_file.write(" ".join(tokens) + "\n")
+
+@task
+def stem(c,
+              model_path,
+              input_dir,
+              output_dir=None,
+              lang="pli",
+              ):
+    stmr = Stemmer(lang=lang,
+                   spm_model_abspath=model_path,
+                input_dir=input_dir,
+                output_dir=output_dir,
+                archive=False,
+                resume_mode=False
+                )
+    stmr.process_src_dir()
