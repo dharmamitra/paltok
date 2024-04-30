@@ -22,8 +22,10 @@ def get_new_filename(file_path: Path, extention: str = "tsv") -> str:
         str: _description_
     """
     key = "-".join(file_path.parent.parts)
-    name = file_path.stem.replace(".", "_")
-    return key + "__" + name + "." + extention
+    name = file_path.stem
+    # name = name.replace(".", "_")
+    sep = "__" if key else ""
+    return key + sep + name + "." + extention
 
 
 def clone_repo():
@@ -33,18 +35,18 @@ def clone_repo():
 
 
 def pali_repo2tsv(
-    json_dir="../segmented-pali/inputfiles/",
-    tsv_dir="../",
-    extention="tsv",
-    clone=True,
-    archive=True,
+        json_dir="../segmented-pali/inputfiles_cut_segments_on_space",
+        tsv_dir="../",
+        extention="tsv",
+        clone=False,
+        archive=False,
     ):
     if clone:
         clone_repo()
     stamp = get_timestapm(None)
 
     tsv_dir = Path(tsv_dir) / (PALI_TSV_DIR_PREFIX + stamp)
-    tsv_dir.mkdir(exist_ok=True)
+    tsv_dir.mkdir(exist_ok=True, parents=True)
 
     print(f"Transforming to TSV and writing to {tsv_dir}")
     all_files = list(Path(json_dir).rglob("*.json"))

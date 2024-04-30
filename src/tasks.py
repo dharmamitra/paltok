@@ -8,7 +8,7 @@ from timestamp import stamp2datetime, get_timestapm, find_latest
 from pali_prep_spm import PALI_FOR_SPM_FILENAME
 import sentencepiece as spm
 
-# invoke create-pali-all-tsv --json-dir "../segmented-pali/inputfiles/" --tsv-dir "../pali_all"
+# invoke create-pali-all-tsv --json-dir "../segmented-pali/inputfiles_cut_segments_on_space" --tsv-dir "../pali_all"
 @task
 def create_pali_all_tsv(c,
         json_dir,
