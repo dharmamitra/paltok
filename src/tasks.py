@@ -76,7 +76,7 @@ def encode_for_fasttext(c, input_path, model_path, output_path):
                 tokens = sp.encode_as_pieces(line)
                 out_file.write(" ".join(tokens) + "\n")
 
-# invoke stem --input-dir="/home/wo/bn/paltok/output/pali_all_202401291258" --model-path="/home/wo/bn/dvarapandita/code/ref/pali_spm_2024-01-15.model"
+# invoke stem --input-dir="/home/wo/dm/paltok/pali_all/pali_all_2024-05-09-2044" --model-path="/home/wo/bn/dvarapandita/code/ref/pali_spm_2024-01-15.model" --headers --archive
 @task
 def stem(c,
               model_path,
@@ -84,7 +84,7 @@ def stem(c,
               output_dir=None,
               lang="pli",
               archive=False,
-              headers=False,
+              headers=True,
               ):
     if output_dir:
         Path(output_dir).mkdir(exist_ok=True)

@@ -77,7 +77,8 @@ class Stemmer:
         elif path.is_dir():
             return path
         else:
-            raise
+            print(f">>>>>>>>>>>>>> {input_path} does not exist")
+            exit()
 
     def init_file_paths(self) -> list[Path]:
         paths = list(self.src_dir.rglob("*.tsv"))
