@@ -5,7 +5,7 @@ import pandas as pd
 import shutil
 from tqdm import tqdm
 
-from pali_cleaner import pali_cleaner
+from pali_cleaner import clean_pali
 from timestamp import get_timestapm, find_latest, stamp2datetime
 from pali_json2tsv import PALI_TSV_DIR_PREFIX
 PALI_FOR_SPM_FILENAME = "pali_for_spm"
@@ -40,7 +40,7 @@ def pali_prep_spm(
                 segment_ids = df[0]
                 text_col = df[1]
             for seg_id, line in zip(segment_ids, text_col):
-                cleaned_line = pali_cleaner(str(line))
+                cleaned_line = clean_pali(str(line))
                 if DEBUG:
                     if not len(cleaned_line.strip()):
                         print(f"{seg_id} : {line} : ${cleaned_line}$ = {len(cleaned_line)}")

@@ -3,26 +3,12 @@ import sentencepiece as spm
 import pandas as pd
 from tqdm import tqdm
 import shutil
-from .pali_constants import *
+from dp_constants import *
+from pali_cleaner import clean_pali, normalize_orig
 
 import re
 
 
-def clean_pali(string):  # TODO: should be loaded from paltok sooner or later
-    if type(string) != str:
-        print(f"Pali cleaner: non-str input: {string}")
-        return ""
-    html_tags = re.compile("<.*?>")
-    string = string.lower()
-    string = re.sub(html_tags, "", string)
-    string = re.sub(
-        r'[0-9!"#$%&()*+,-./:;<=>?@[\]^_`{|}~\']', "", string
-    )  # ascii digits and punctuation
-    string = re.sub(r"[\t\n\r\x0b\x0c]", " ", string)  # whitespaces apart from " "
-    string = re.sub(r"[ṅṁ]", "ṃ", string)  # whitespaces apart from " "
-    string = re.sub(r"[”ऐạै–…‘“’\\ौऋ—औ]", "", string)
-    string = string.strip()
-    return string
 
 
 class LanguageNotSupported(Exception):

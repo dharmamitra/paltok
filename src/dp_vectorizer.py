@@ -6,8 +6,8 @@ import pandas as pd
 import numpy as np
 import fasttext
 
-from .pali_constants import *  ###################################################
-from pali_text_file import TextFile
+from .dp_constants import *  ###################################################
+from dp_text_file import TextFile
 
 
 class Vectorizer:
