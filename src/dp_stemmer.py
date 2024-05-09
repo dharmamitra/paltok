@@ -137,6 +137,9 @@ class Stemmer:
         df[TSV_COL_STEMMED] = [
             self.stem_segment(seg) for seg in df[TSV_COL_ORIGINAL].tolist()
         ]
+        df[TSV_COL_ORIGINAL] = [
+            normalize_orig(seg) for seg in df[TSV_COL_ORIGINAL].tolist()
+        ]
         if self.drop_empty:  # Lines: before: 2_886_152. after: 2_849_001
             df = df[df[TSV_COL_ORIGINAL] != ""]
             df = df[df[TSV_COL_STEMMED] != ""]
